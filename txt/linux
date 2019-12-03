@@ -1,0 +1,92 @@
+1. you can download the source for linux	
+   - https://github.com/torvalds/linux	
+   - sources for almost all software on linux also available	
+   - windows: closed source, can't view	
+
+2. you can install updates without rebooting your machine	
+   - true for most software	
+   - true of even the kernel itself on > 4.0	
+   - windows: requires reboot	
+
+3. you can plug devices in without worrying about finding/downloading drivers	
+   - exception: some highly specialized devices	
+   - windows: requires download	
+
+4. you can run linux from a pen drive, cd, dvd, etc.	
+   - windows: no such option exists	
+
+5. you can run linux for years without rebooting	
+   - ultra stable	
+   - less memory fragmentation	
+   - windows: system becomes slow over time	
+
+6. you can run linux on almost any hardware	
+   - this includes computers/laptops from the 80s and 90s	
+   - windows: minimum requirements often alienate hardware	
+
+7. you can fix broken linux installs with a live cd	
+   - sometimes broken windows can be fixed with a linux live cd	
+   - windows: system repair is only option	
+
+8. you can update all of your software often with a single command	
+   - windows: windows update only updates windows	
+
+9. you can move a hard drive from one linux machine to another	
+   - largely made possible by not needing specific drivers	
+   - windows: system often will not function properly	
+   - windows: moving a hard drive often requiers a new license as well	
+
+10. you can customize quite literally anything	
+   - fonts, icons, themes, etc.	
+   - there are even windows and mac themes on linux	
+   - windows: some customization is available, but not near the extent of linux	
+
+11. you can install software without worrying about viruses and malware	
+   - implies also that no anti-virus software is needed	
+   - software from official respositories will never contain malicious software	
+
+
+man ## manual	
+
+cd	
+ls	
+ls -R ## recursive	
+ls -a ## hidden	
+ls -al ## all hidden	
+cat filename ## create text file	
+cat filename	
+cat file file2 file3 ## combine textfile	
+mv  file "new file path"	
+mv filename new_file_name	
+sudo ## superuser do	
+rm	
+history 	
+clear	
+mkdir	
+rmdir	
+mv	
+apt-get	
+
+## advanced	
+
+sudo !! ## redo last command but as root	
+mkdir -p /path/to/new/dir	
+cd !$ 	
+
+ctrl+x+e ## open an editor to run a command	
+
+## create a super fast ram disk	
+mkdir -p /mnt/ram	
+mount -t tmpfs tmpfs /mnt/ram -o size=8192M	
+
+## don't add command to history (note the leading space)	
+ ls -l	
+
+fc ## fix a really long command that you messed up	
+
+## quickly create folders	
+mkdir -p folder/{sub1,sub2}/{sub1,sub2,sub3}	
+
+## bonus: exit terminal but leave all processes running	
+disown -a && exit	
+
