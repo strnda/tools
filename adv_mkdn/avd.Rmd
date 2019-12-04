@@ -7,11 +7,11 @@ output:
     toc: yes
 editor_options: 
   chunk_output_type: console
+header-includes:
+   - \usepackage{amssymb}
+   - \usepackage{amsmath}
 ---
 # Introduction
-
-
-# Other languages in MKDW
 
 R Markdown can use many other languages not just R...
 
@@ -52,7 +52,7 @@ ls -la
 # HTML widgets
 
 Install the packages if not present 
-```{r, message = FALSE, warning = FALSE, cache = FALSE, include = FALSE}
+```{r, message = FALSE, warning = FALSE, cache = FALSE}
 
 lop <- c('broom',
          'dplyr',
@@ -205,3 +205,13 @@ datatable(data = iris,
           class = 'cell-border stripe',
           editable = 'cell')
 ```
+
+# \( \LaTeX \)
+
+The three-parameter Generalizeed Pareto distribution (GPD) is formulated as
+
+\begin{equation}
+    f(x) = \alpha^{-1}e^{-(1 - \kappa)y}, \quad y = \begin{cases} -\kappa^{-1}\log \Big[ 1 - \frac{\kappa(x - \xi)}{\alpha} \Big], & \kappa \neq 0,\\\frac{(x - \xi)}{\alpha}, & \kappa = 0.\end{cases}
+\end{equation}
+
+where $\xi \in  R$ is location, $\alpha > 0$ scale and $\kappa \in  R$ shape parameter with range of $x$: $\xi \leq x \leq \xi + \alpha/\kappa$ if $\kappa > 0$ and $\xi \leq x \leq \infty$ if $\kappa \leq 0$. 
