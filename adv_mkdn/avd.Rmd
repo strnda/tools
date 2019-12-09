@@ -17,7 +17,10 @@ R Markdown can use many other languages not just R...
 
 ## Setup for python
 ```{r}
-library(reticulate)
+if (!require(package = reticulate)) {
+  
+  install.packages(pkgs = "reticulate")
+}
 ```
 
 ### python variable in R
