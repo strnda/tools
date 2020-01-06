@@ -11,11 +11,14 @@ header-includes:
    - \usepackage{amssymb}
    - \usepackage{amsmath}
 ---
-# Introduction
 
-R Markdown can use many other languages not just R...
+For source code see [github page](https://github.com/strnda/tools/blob/master/adv_mkdn/avd.Rmd).    
 
-## Setup for python
+# R Markdown with other languages {.tabset}
+
+## python
+
+### Setup 
 ```{r}
 if (!require(package = reticulate)) {
   
@@ -46,13 +49,14 @@ print(r.x)
 
 
 ## bash
+see [link](https://github.com/strnda/tools/blob/master/txt/linux)
 ```{bash}
 echo 'Hello Bash!'
 ls -la
 
 ```
 
-# HTML widgets
+# HTML widgets {.tabset}
 
 Install the packages if not present 
 ```{r, message = FALSE, warning = FALSE, cache = FALSE}
@@ -76,10 +80,10 @@ if(length(x = to.instal) != 0) {
   install.packages(pkgs = to.instal)
 }
 
-lapply(X = lop, 
+aux <- lapply(X = lop, 
        FUN = library, character.only = T)
 
-
+rm(list = 'aux')
 ```
 
 
@@ -106,7 +110,7 @@ dygraph(data = nhtemp,
                                  '1960-01-01'))
 ```
 
-## plotly
+## plotly {.tabset}
 ### ggplot2 with plotly
 ```{r}
 p <- ggplot(data = diamonds, 
@@ -127,7 +131,7 @@ plot_ly(z = ~volcano,
 ```
 
 ## highcharter
-```{r}
+```{r, warning = FALSE}
 data(diamonds)
 
 set.seed(seed = 123)
