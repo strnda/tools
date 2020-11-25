@@ -408,7 +408,7 @@ cd !$
 # open an editor to run a command	
 CTRL+X+E
 
-# create a super fast ram disk (might have to use as superuser SUDO)
+# create a super fast ram disk (might have to use as superuser - sudo)
 mkdir -p /mnt/ram	
 mount -t tmpfs tmpfs /mnt/ram -o size=8192M	
 
@@ -422,6 +422,5 @@ fc
 mkdir -p folder/{sub1,sub2}/{sub1,sub2,sub3}	
 
 # bonus: exit terminal but leave all processes running	
-disown -a && exit	
 disown -a && exit	
 
