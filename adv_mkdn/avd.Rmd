@@ -1,0 +1,224 @@
+---
+title: 'R markdown Advanced'
+output: 
+  html_document: 
+    df_print: kable
+    number_sections: yes
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+header-includes:
+   - \usepackage{amssymb}
+   - \usepackage{amsmath}
+---
+
+For source code see [github page](https://github.com/strnda/tools/blob/master/adv_mkdn/avd.Rmd).    
+
+# R Markdown with other languages {.tabset}
+
+## python
+
+### Setup 
+```{r}
+if (!require(package = reticulate)) {
+  
+  install.packages(pkgs = "reticulate")
+}
+```
+
+### python variable in R
+```{python}
+x = .1 + .1 + .1
+
+print(x)
+```
+
+```{r}
+py$x
+```
+
+
+### vice versa
+```{r}
+x <- rnorm(n = 10)
+```
+
+```{python}
+print(r.x)
+```
+
+
+## bash
+see [link](https://github.com/strnda/tools/blob/master/txt/linux)
+```{bash}
+echo 'Hello Bash!'
+ls -la
+
+```
+
+# HTML widgets {.tabset}
+
+Install the packages if not present 
+```{r, message = FALSE, warning = FALSE, cache = FALSE}
+
+lop <- c('broom',
+         'dplyr',
+         'leaflet',
+         'dygraphs',
+         'ggplot2',
+         'plotly', 
+         'highcharter', 
+         'visNetwork', 
+         'networkD3', 
+         'DT', 
+         'DiagrammeR')
+
+to.instal <- lop[which(x = !lop %in% installed.packages()[,'Package'])]
+
+if(length(x = to.instal) != 0) {
+  
+  install.packages(pkgs = to.instal)
+}
+
+aux <- lapply(X = lop, 
+       FUN = library, character.only = T)
+
+rm(list = 'aux')
+```
+
+
+## leaflet
+```{r}
+data(quakes)
+
+head(quakes)
+
+leaflet(data = quakes[1:20,]) %>% 
+  addTiles() %>%
+  addMarkers(lng = ~long, 
+             lat = ~lat, 
+             popup = ~as.character(x = mag), 
+             label = ~as.character(x = mag))
+
+```
+
+## dygraphs
+```{r}
+dygraph(data = nhtemp, 
+        main = 'New Haven Temperatures') %>% 
+  dyRangeSelector(dateWindow = c('1920-01-01', 
+                                 '1960-01-01'))
+```
+
+## plotly {.tabset}
+### ggplot2 with plotly
+```{r}
+p <- ggplot(data = diamonds, 
+            mapping = aes(x = cut, 
+                          fill = clarity)) +
+            geom_bar(position = 'dodge')
+
+ggplotly(p = p)
+```
+
+### pure plotly
+```{r}
+plot_ly(z = ~volcano, 
+        type = 'heatmap')
+
+plot_ly(z = ~volcano, 
+        type = 'surface')
+```
+
+## highcharter
+```{r, warning = FALSE}
+data(diamonds)
+
+set.seed(seed = 123)
+data <- sample_n(tbl = diamonds, 
+                 size = 300)
+
+modlss <- loess(formula = price ~ carat, 
+                data = data)
+fit <- arrange(.data = augment(x = modlss), 
+               carat)
+
+highchart() %>%
+  hc_add_series(data = data, 
+                type = 'scatter',
+                hcaes(x = carat, 
+                      y = price, 
+                      size = depth, 
+                      group = cut)) %>%
+  hc_add_series(data = fit, 
+                type = 'line', 
+                hcaes(x = carat, 
+                      y = .fitted),
+                name = 'Fit', 
+                id = 'fit') %>%
+  hc_add_series(data = fit, 
+                type = 'arearange',
+                hcaes(x = carat, 
+                      low = .fitted - 2*.se.fit,
+                      high = .fitted + 2*.se.fit),
+                linkedTo = 'fit')
+```
+
+## visNetwork
+```{r}
+nodes <- data.frame(id = 1:6, 
+                    title = paste("node", 1:6), 
+                    shape = c("dot", "square"),
+                    size = 10:15, 
+                    color = c("blue", "red"))
+edges <- data.frame(from = 1:5, 
+                    to = c(5, 4, 6, 3, 3))
+head(x = nodes)
+
+visNetwork(nodes = nodes, 
+           edges = edges)
+```
+
+
+```{r}
+nodes <- data.frame(id = 1:10, 
+                    label = paste("Node", 1:10),
+                    group = c("GrA", "GrB"),
+                    value = 1:10, 
+                    shape = c("square", "triangle", "box", "circle", "dot", "star",
+                              "ellipse", "database", "text", "diamond"),
+                    title = paste0("<p><b>", 1:10,"</b><br>Node !</p>"), 
+                    color = c("darkred", "grey", "orange", "darkblue", "purple"),
+                    shadow = c(FALSE, TRUE, FALSE, TRUE, TRUE)) 
+
+edges <- data.frame(from = sample(1:10,8), to = sample(1:10, 8),
+                    label = paste("Edge", 1:8), 
+                    length = c(100,500), 
+                    arrows = c("to", "from", "middle", "middle;to"),
+                    dashes = c(TRUE, FALSE),  
+                    title = paste("Edge", 1:8), 
+                    smooth = c(FALSE, TRUE),  
+                    shadow = c(FALSE, TRUE, FALSE, TRUE)) 
+
+visNetwork(nodes = nodes, edges = edges) %>%
+  visOptions(highlightNearest = TRUE,
+             nodesIdSelection = TRUE)
+```
+
+## DataTables
+```{r}
+datatable(data = iris, 
+          options = list(pageLength = 10),
+          class = 'cell-border stripe',
+          editable = 'cell')
+```
+
+# \( \LaTeX \)
+
+The three-parameter Generalizeed Pareto distribution (GPD) is formulated as
+
+\begin{equation}
+    f(x) = \alpha^{-1}e^{-(1 - \kappa)y}, \quad y = \begin{cases} -\kappa^{-1}\log \Big[ 1 - \frac{\kappa(x - \xi)}{\alpha} \Big], & \kappa \neq 0,\\\frac{(x - \xi)}{\alpha}, & \kappa = 0.\end{cases}
+\end{equation}
+
+where $\xi \in  R$ is location, $\alpha > 0$ scale and $\kappa \in  R$ shape parameter with range of $x$: $\xi \leq x \leq \xi + \alpha/\kappa$ if $\kappa > 0$ and $\xi \leq x \leq \infty$ if $\kappa \leq 0$. 

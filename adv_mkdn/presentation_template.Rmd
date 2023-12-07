@@ -1,0 +1,33 @@
+---
+title: 'pres'
+author: 'me'
+date: 'today'
+output: ioslides_presentation
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 1st slide
+
+Hello World
+
+## 2nd slide
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Output
+
+```{r, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r}
+plot(pressure)
+```
+

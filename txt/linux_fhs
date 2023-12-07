@@ -1,0 +1,108 @@
+Linux Filesystem Hierarchy Standard
+The latest rendition of FHS was released by Linux Foundation in 2015.
+
+/ (root)
+This is the beginning of the Linux filesystem hierarchy. All the file paths originate from the root. The directories listed above or symbolic links to those directories are required in / otherwise, the file structure isn’t FSH compliant.
+
+/bin
+Stores essential command binaries which can be used by both system administrator and the user such as cat,ls,mv,ps,mount etc.
+These commands are used to boot up a system (access boot files, mount drives) and can be used while repairing a system when the binaries in /usr aren’t available
+
+/boot
+This directory contains all the files necessary for the system to boot up
+This includes the kernel files, initrd, initramfs, bootloader etc.
+
+/dev
+Contains device files for all the physical and virtual devices mounted in the system.
+Device files arent files in the traditional sense. They are a way for device drivers to access and interact with the said device
+Usually, the primary storage is called sda (/dev/sda)
+
+/etc
+This directory contains configuration files of your system.
+The name of your device, your passwords, your network configuration, DNS, crontabs, date and time ..etc are stored here in configuration files.
+This directory cannot contain any binary executable files according to FHS.
+These configuration files affect all users on the system. If you want to make config changes for a specific user, ~/.conf/ should be used instead of /etc/
+
+/home
+The home contains all the personal user-specific files. It contains separate directories for each user which can be accessed by cd /home/username
+This is where you do most of your work. All the downloads, pictures, music etc on your system are in /home.
+The user-specific configuration file for each application can be found in /home/[username]/.conf
+You can go to any users home directory by executing cd ~[username] . If there is only one user on the system, just cd ~ works.
+
+/lib
+Libraries are standard code files that define the commands used in a programming language. During compilation, a compiler looks up these libraries to make sense of the code just as we might look up a dictionary to understand the meaning of words while reading a book.
+This directory contains all the libraries needed to boot up the system and for commands in /bin and /sbin to run.
+This also contains kernel modules which control a lot of your hardware and device functioning
+A lot of times, there are different 32-bit and 64-bit libraries with the same name. To avoid any collusion, these binaries are kept in two separate directories accordingly named /lib32 and /lib64.
+
+/media
+This directory contains several sub-directories where the system mounts removable devices such as USB drives.
+
+/mnt
+This directory can be used by a user to manually mount a device. (as opposed to /media which is only used by the system)
+The current convention among users is making a separate subdirectory under /mnt and mounting the device in that subdirectory, while the older tradition is mounting the device directly in /mnt.
+
+/opt
+/opt contains libraries and binaries related to packages which are not installed by your system’s package managers but are installed through third-party means like using Discord’s in-application update button.
+/opt is a less popular alternative to /usr/local . It is the vendor who decided where the libraries and binaries go but usually more monolithic and proprietary software like zoom use /opt .
+
+/run
+This directory contains the metadata of the device since the last boot.
+This includes data of all the system processes and daemons that were executed in the current session.
+Files under this directory are cleared (removed or truncated) at the beginning of the boot process.
+
+/sbin
+Just like /bin, /sbin also contains essential system binaries. However, these binaries are only meant to be used by a system administrator rather than a normal user.
+These binaries are mostly used for device management. For example, fdisk, fsck, mkfs, ifconfig, reboot.
+
+/srv
+You will only ever use this directory if your device is acting as a webserver, as this directory contains all the files regarding web servers.
+For example if host a FTP connection, all the files that need to be shared should by default go in a /srv/ftp.
+
+/tmp
+Contains temporary files of the currently running processes.
+This data is also flushed after every boot.
+
+/proc
+Just like /dev which provides devices as files, this folder contains system information and kernel information as files.
+This includes information regarding memory, partitions, hardware (battery, temperature etc), all loaded kernel modules etc.
+
+/sys (distro specific)
+It contains information similarly held in /proc/, but displays a hierarchical view of specific device information in regards to hot-plug devices.
+
+/var
+Contains variable data regarding the running processes.
+This includes the logs, cache and spools for all applications.
+Spools are the data which are waiting for further processing. For example, A document waiting in the printer queue or an email header waiting to be sent.
+
+/lost+found (ext4 feature)
+While not listed in the FHS, this directory is automatically generated by fsck.
+It stores all the orphaned and corrupted files in this folder.
+This includes the files you couldn’t save because of a power cut, files corrupted due to a failed upgrade process etc.
+
+/root (optional)
+This is supposed to be the home directory for the root user, as opposed to /home which is the home directory for the non-root users.
+
+/usr
+The /usr directory has very interesting origins. At the time of formation, it was supposed to act like the /home directory, but when people ran out of space on /bin, they started storing the non-essential binaries in /usr.
+Over time, this directory has been fashioned to store the binaries and libraries for the applications that are installed by the user. So for example, while bash is in /bin (since it can be used by all users) and fdisk is in /sbin (since it should only be used by administrators), user-installed applications like vlc are in /usr/bin.
+This way /usr has its own hierarchy just like the / (root) did.
+
+/usr/bin
+This is the primary directory of executable commands on the system.
+Contains all user-installed command binaries and
+If you want to execute your scripts using a single command, you usually place them in /usr/bin/
+
+/usr/sbin
+This contains user-installed command binaries that can only be used by system administrators.
+
+/usr/lib
+This contains the essential libraries for packages in /usr/bin and /usr/sbin just like /lib.
+
+/usr/local
+This is used for all packages which are compiled manually from the source by the system administrator.
+This directory has its own hierarchy with all the bin, sbin and lib folders which contain the binaries and applications of the compiled software.
+
+/usr/share
+Contains several architecture-independent miscellaneous files
+Man files, word lists (dictionaries) and definition files are all included in this.
