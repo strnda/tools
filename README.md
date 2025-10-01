@@ -8,7 +8,7 @@ invite link**
 
 ## How to get the content of tis repo to your local machine
 
-Or manualy download the archive… |
+Manualy download the archive… |
 
 ``` bash
 ## using bash (git) commands
