@@ -1,0 +1,35 @@
+## call git manual	
+man git	
+
+## set path to your working directory	
+cd ~/Desktop/die\ Schule/vyuka/tools/
+ls	
+
+## init git for your directory	
+git config --global user.name "strnda"	
+git config --global user.email "strnadf@fzp.czu.cz"	
+git init	
+
+## connect git you remote server (github)	
+git remote add origin https://github.com/strnda/tools.git	
+git remote -v ## list all remote conections	
+
+## might need to update github token
+## git remote set-url origin https://exampleuser:b8c28127***63gu56b2d@github.com/exampleuser/exampleproject.git
+
+## add all files to be tracked by git	
+git add * 	
+
+## commit all changes	
+git commit -a	
+
+## try to push the changes to origin (should give an error now)	
+git push --all origin	
+
+## pull the latest version from origin 	
+## (should give an error as well since the histories on remote are different)	
+git pull origin master	
+git pull origin master --allow-unrelated-histories	
+git push --all origin ## now it will pass	
+
+## and thats it we have an active git/github repository now :)	
