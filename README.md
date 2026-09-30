@@ -2,7 +2,7 @@
 
 Collection of materials for the **tools** class
 
-**Valid (2026-04-08)
+**Valid (2026-09-30)
 [Datacamp](https://www.datacamp.com/groups/shared_links/6b75b4c8cc0f74774363b054e303ecaa820837a3404c15d5eef8b338034640ac)
 invite link**
 
